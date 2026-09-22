@@ -106,6 +106,7 @@ def process_text(text: str, dictionary: dict, verbose: bool):
 
     return False
 
+
 """
 But: Traiter le prochain mot pour savoir s'il est valide
 Paramètres:
@@ -141,6 +142,7 @@ def process_next_word(word: str, node: int, dictionary: dict, verbose: bool):
     # Si une transition est trouvé alors on retourne sa destination
     return destination
 
+
 """
 But: Trouver la destination depuis un noeud via un type
 Paramètres:
@@ -155,7 +157,9 @@ def find_destination(node: int, type: int):
     if type < 0 or type >= len(TRANSITIONS[node]):
         return None
 
-    # Récupérer la destination
+    # Récupère la destination
     destination = TRANSITIONS[node][type]
 
     return destination
+
+
