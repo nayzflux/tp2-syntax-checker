@@ -8,12 +8,12 @@ Date: 22/09/2026
 ARTICLE = 0
 ADJECTIF = 1
 NOM_COMMUN = 2
-NOM_PROPRE = 4
 VERBE = 3
+NOM_PROPRE = 4
 POINT = 5
 
 # Table de transition
-transitions = [
+TRANSITIONS = [
     # art adj nom verbe npropre point
     [ 1, -1, -1, -1,  4, -1],  # 0
     [-1,  1,  2, -1, -1, -1],  # 1
@@ -152,12 +152,13 @@ Paramètres:
 Sortie: (int | None) : noeud de destination, None si aucune transition trouvée
 """
 def find_destination(node: int, type: int):
-    # Récupérer la liste des transitions depuis ce noeuds
-    node_transitions = NODES[node]
+    if node < 0 or node >= len(TRANSITIONS):
+        return None
 
-    # Trouver la transition associer à ce type
-    for transition in node_transitions:
-        if transition["type"] == type:
-            return transition
+    if type < 0 or type >= len(TRANSITIONS):
+        return None
 
-    return None
+    # Récupérer la destination
+    destination = TRANSITIONS[node][type]
+
+    return destination
