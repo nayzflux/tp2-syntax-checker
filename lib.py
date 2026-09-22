@@ -7,105 +7,19 @@ VERBE = 3
 POINT = 5
 
 # Table de transition
-NODES = [
-    # Noeud 0
-    [
-        {
-            "type": ARTICLE,
-            "to": 1,
-        },
-        {
-            "type": NOM_PROPRE,
-            "to": 4,
-        },
-    ],
-
-    # Noeud 1
-    [
-        {
-            "type": ADJECTIF,
-            "to": 1,
-        },
-        {
-            "type": NOM_COMMUN,
-            "to": 2,
-        },
-    ],
-
-    # Noeud 2
-    [
-        {
-            "type": ADJECTIF,
-            "to": 2,
-        },
-        {
-            "type": VERBE,
-            "to": 3,
-        },
-    ],
-
-    # Noeud 3
-    [
-        {
-            "type": POINT,
-            "to": 9,
-        },
-        {
-            "type": ARTICLE,
-            "to": 5,
-        },
-        {
-            "type": NOM_PROPRE,
-            "to": 7,
-        },
-    ],
-
-    # Noeud 4
-    [
-        {
-            "type": VERBE,
-            "to": 3,
-        },
-    ],
-
-    # Noeud 5
-    [
-        {
-            "type": ADJECTIF,
-            "to": 5,
-        },
-        {
-            "type": POINT,
-            "to": 6,
-        },
-    ],
-
-    # Noeud 6
-    [
-        {
-            "type": ADJECTIF,
-            "to": 6,
-        },
-        {
-            "type": POINT,
-            "to": 9,
-        },
-    ],
-
-    # Noeud 7
-    [
-        {
-            "type": POINT,
-            "to": 9,
-        },
-    ],
-
-    # Noeud 8 : absent du graphe
-    [],
-
-    # Noeud 9 : état final
-    [],
-]
+transitions = [
+    # art adj nom verbe npropre point
+    [ 1, -1, -1, -1,  4, -1],  # 0  
+    [-1,  1,  2, -1, -1, -1],  # 1 
+    [-1,  2, -1,  3, -1, -1],  # 2 
+    [ 5, -1, -1, -1,  7,  9],  # 3 
+    [-1, -1, -1,  3, -1, -1],  # 4 
+    [-1,  5,  6, -1, -1, -1],  # 5 
+    [-1,  6, -1, -1, -1,  9],  # 6 
+    [-1, -1, -1, -1, -1,  9],  # 7 
+    [-1, -1, -1, -1, -1, -1],  # 8 inutilisé, gardé pour que la ligne 9 soit à l'indice 9
+    [-1, -1, -1, -1, -1, -1],  # 9 fin de phrase
+    ]
 
 # Dictionnaire pour l'analyse syntaxique
 DICTIONNAIRE = {"le" : 0, "la" : 0, "chat" : 2, "souris" : 2, "martin" : 4,
@@ -117,4 +31,4 @@ def process_text(text: str, verbose: bool):
     words = text.split(" ")
 
 def process_next_word(text: str, node: int):
-    type = DICTIONNAIRE[]
+    type = DICTIONNAIRE[
