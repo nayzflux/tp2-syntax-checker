@@ -21,8 +21,6 @@ def load_dictionary(file_path: str):
         mot = row["mot"]
         type_mot = row["type"]
 
-        print(mot, type_mot)
-
         dictionary[mot] = type_mot
 
     return dictionary
