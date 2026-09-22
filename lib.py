@@ -8,110 +8,24 @@ Date: 22/09/2026
 ARTICLE = 0
 ADJECTIF = 1
 NOM_COMMUN = 2
-NOM_PROPRE = 4
 VERBE = 3
+NOM_PROPRE = 4
 POINT = 5
 
 # Table de transition
-NODES = [
-    # Noeud 0
-    [
-        {
-            "type": ARTICLE,
-            "to": 1,
-        },
-        {
-            "type": NOM_PROPRE,
-            "to": 4,
-        },
-    ],
-
-    # Noeud 1
-    [
-        {
-            "type": ADJECTIF,
-            "to": 1,
-        },
-        {
-            "type": NOM_COMMUN,
-            "to": 2,
-        },
-    ],
-
-    # Noeud 2
-    [
-        {
-            "type": ADJECTIF,
-            "to": 2,
-        },
-        {
-            "type": VERBE,
-            "to": 3,
-        },
-    ],
-
-    # Noeud 3
-    [
-        {
-            "type": POINT,
-            "to": 9,
-        },
-        {
-            "type": ARTICLE,
-            "to": 5,
-        },
-        {
-            "type": NOM_PROPRE,
-            "to": 7,
-        },
-    ],
-
-    # Noeud 4
-    [
-        {
-            "type": VERBE,
-            "to": 3,
-        },
-    ],
-
-    # Noeud 5
-    [
-        {
-            "type": ADJECTIF,
-            "to": 5,
-        },
-        {
-            "type": NOM_COMMUN,
-            "to": 6,
-        },
-    ],
-
-    # Noeud 6
-    [
-        {
-            "type": ADJECTIF,
-            "to": 6,
-        },
-        {
-            "type": POINT,
-            "to": 9,
-        },
-    ],
-
-    # Noeud 7
-    [
-        {
-            "type": POINT,
-            "to": 9,
-        },
-    ],
-
-    # Noeud 8 : absent du graphe
-    [],
-
-    # Noeud 9 : état final
-    [],
-]
+TRANSITIONS = [
+    # art adj nom verbe npropre point
+    [ 1, -1, -1, -1,  4, -1],  # 0
+    [-1,  1,  2, -1, -1, -1],  # 1
+    [-1,  2, -1,  3, -1, -1],  # 2
+    [ 5, -1, -1, -1,  7,  9],  # 3
+    [-1, -1, -1,  3, -1, -1],  # 4
+    [-1,  5,  6, -1, -1, -1],  # 5
+    [-1,  6, -1, -1, -1,  9],  # 6
+    [-1, -1, -1, -1, -1,  9],  # 7
+    [-1, -1, -1, -1, -1, -1],  # 8 pas utilisé, mais pour garder 9
+    [-1, -1, -1, -1, -1, -1],  # 9 fin de phrase
+    ]
 
 # Dictionnaire pour l'analyse syntaxique
 DICTIONNAIRE = {"le" : 0, "la" : 0, "chat" : 2, "souris" : 2, "martin" : 4,
@@ -238,12 +152,13 @@ Paramètres:
 Sortie: (int | None) : noeud de destination, None si aucune transition trouvée
 """
 def find_destination(node: int, type: int):
-    # Récupérer la liste des transitions depuis ce noeuds
-    node_transitions = NODES[node]
+    if node < 0 or node >= len(TRANSITIONS):
+        return None
 
-    # Trouver la transition associer à ce type
-    for transition in node_transitions:
-        if transition["type"] == type:
-            return transition
+    if type < 0 or type >= len(TRANSITIONS):
+        return None
 
-    return None
+    # Récupérer la destination
+    destination = TRANSITIONS[node][type]
+
+    return destination
