@@ -40,7 +40,7 @@ IGNORED = [
 ]
 
 """
-But: Extraire la listes des mots en échappant les caractères spéciaux
+But: Extraire la listes des mots en minuscule en échappant les caractères spéciaux et sans les mots vides
 Paramètres:
     - text (str) : texte duquel extraire les mots
 Sorties: (list[str]) : liste des mots
@@ -62,10 +62,12 @@ def extract_words(text: str):
 
     # Split le texte par ESPACE, sans les mots vides
     for word in text.split(" "):
+        # Ignorer les vides
         if word == "":
             continue
 
-        words.append(word)
+        # Ajouter le mot en minuscule
+        words.append(word.lower())
 
     return words
 
