@@ -31,3 +31,11 @@ TABLE DE TRANSITION:
 | 8  | -1 | -1 | -1 | -1 | -1 | -1 |
 | 9  | -1 | -1 | -1 | -1 | -1 | -1 |
 
+
+Les exemples testés avec le micro dictionnaire du TP:
+le chat mange.      Correct
+le joli chat mange. Correct
+je mange le chat.   Incorrect
+le chad mange.      Incorrect
+chat le mange.      Incorrect
+Jean dort.          Correct
