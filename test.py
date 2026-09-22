@@ -1,5 +1,14 @@
 import lib
 
+verbose = True
+
+# Process text
+print("--------------------------------------")
+
+print(" ")
+print("process_text")
+print(" ")
+
 phrases_correctes = [
     "le joli chat mange.",
     "le ,joli chat ; dort.",
@@ -14,12 +23,16 @@ phrases_correctes = [
 phrases_incorrectes = [
     ".",
     "",
-    "le joli chat joue",
-    "le joli chat joue."
+    "le joli chat mange",
+    "le joli chat joue.",
 ]
 
 for phrase in phrases_correctes:
-    print(phrase, lib.process_text(phrase, True) == True)
+    assert lib.process_text(phrase, verbose), f"Devrait être correcte : {phrase}"
 
 for phrase in phrases_incorrectes:
-    print(phrase, lib.process_text(phrase, True) == False)
+    assert not lib.process_text(phrase, verbose), f"Devrait être incorrecte : {phrase}"
+
+print("--------------------------------------")
+
+print("Tous les tests sont passés.")
