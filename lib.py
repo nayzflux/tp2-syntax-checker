@@ -17,7 +17,7 @@ transitions = [
     [-1,  5,  6, -1, -1, -1],  # 5 
     [-1,  6, -1, -1, -1,  9],  # 6 
     [-1, -1, -1, -1, -1,  9],  # 7 
-    [-1, -1, -1, -1, -1, -1],  # 8 inutilisé, gardé pour que la ligne 9 soit à l'indice 9
+    [-1, -1, -1, -1, -1, -1],  # 8 pas utilisé, mais pour garder 9
     [-1, -1, -1, -1, -1, -1],  # 9 fin de phrase
     ]
 
@@ -31,4 +31,5 @@ def process_text(text: str, verbose: bool):
     words = text.split(" ")
 
 def process_next_word(text: str, node: int):
-    type = DICTIONNAIRE[
+    type = DICTIONNAIRE[ ]
+    
