@@ -27,11 +27,6 @@ TRANSITIONS = [
     [-1, -1, -1, -1, -1, -1],  # 9 fin de phrase
     ]
 
-# Dictionnaire pour l'analyse syntaxique
-DICTIONNAIRE = {"le" : 0, "la" : 0, "chat" : 2, "souris" : 2, "martin" : 4,
-"mange" : 3, "la" : 0, "petite" : 1, "joli" : 1, "grosse" : 1,
-"bleu" : 1, "verte" : 1, "dort" : 3,"julie" : 4, "jean" : 4, "." : 5, "blanc": ADJECTIF}
-
 # Liste des charactères ignorées du traitement
 IGNORED = [
     ";",
@@ -78,7 +73,7 @@ Paramètres:
     - verbose (bool) : afficher les infos de débug
 Sorties: (bool) : True si la phrase est valide, False sinon
 """
-def process_text(text: str, verbose: bool):
+def process_text(text: str, dictionary: dict, verbose: bool):
     # Obtenir la liste de mots
     # Insérer un espace devant un point
     words = extract_words(text)
@@ -96,7 +91,7 @@ def process_text(text: str, verbose: bool):
             print("----------")
             print(f"Start : {current_node}")
 
-        current_node = process_next_word(word, current_node, verbose)
+        current_node = process_next_word(word, current_node, dictionary, verbose)
 
         if verbose:
             print(f"Dest : {current_node}")
@@ -119,19 +114,19 @@ Paramètres:
     - verbose (bool) : afficher les infos de débug
 Sorties: (int) : noeud auquel mène le mot, -1 si le mot est invalide
 """
-def process_next_word(word: str, node: int, verbose: bool):
+def process_next_word(word: str, node: int, dictionary: dict, verbose: bool):
     if verbose:
         print(f"  {word}")
 
     # Si le mot est inconnue alors INVALIDE
-    if word not in DICTIONNAIRE:
+    if word not in dictionary:
         if verbose:
             print("  Unknown")
 
         return -1
 
     # Récupérer le type du mot
-    word_type = DICTIONNAIRE[word]
+    word_type = dictionary[word]
 
     # Trouver la transition utilisé par le mot
     destination = find_destination(node, word_type)
@@ -157,7 +152,7 @@ def find_destination(node: int, type: int):
     if node < 0 or node >= len(TRANSITIONS):
         return None
 
-    if type < 0 or type >= len(TRANSITIONS):
+    if type < 0 or type >= len(TRANSITIONS[node]):
         return None
 
     # Récupérer la destination

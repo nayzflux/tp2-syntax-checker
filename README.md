@@ -11,6 +11,30 @@ Ce projet consiste à réaliser en Python un analyseur syntaxique simple. Il dé
 
 ## Dictionnaire
 
+Le programme utilise un dictionnaire pour associer chaque mot à son type grammatical.
+Ce dictionnaire est chargé à partir d'un fichier CSV.
+
+Deux dictionnaires sont fournis :
+
+- [`dictionnaire.csv`](dictionnaire.csv) : dictionnaire minimal utilisé par défaut par le programme
+- [`dictionnaire2.csv`](dictionnaire2.csv) : dictionnaire de 751 mots étendu depuis **Larousse**
+
+```csv
+mot,type
+chat,2
+mange,3
+.,5
+```
+
+| Numéro | Type grammatical | Exemples |
+|:---:|---|---|
+| `0` | Article ou déterminant | `le`, `une`, `ces` |
+| `1` | Adjectif | `joli`, `grande`, `bleu` |
+| `2` | Nom commun | `chat`, `maison`, `livre` |
+| `3` | Verbe conjugué | `mange`, `dort`, `regarde` |
+| `4` | Nom propre | `jean`, `julie`, `paris` |
+| `5` | Point final | `.` |
+
 ## Diagramme d'états et transition
 
 ![Graphe](Image/1screen.png)
@@ -55,3 +79,9 @@ TRANSITIONS = [
     [-1, -1, -1, -1, -1, -1],  # 9 fin de phrase
     ]
 ```
+
+### Usage de l'IA
+
+- Ecriture de la courte présentation du projet
+- Génération de la matrice Python et du tableau Markdown depuis la table de transition
+- Création d'un nouveau dictionnaire plus complet basé sur **Larousse**
